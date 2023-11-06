@@ -10,8 +10,8 @@ function App() {
 
 
     const [turn, setTurn] = useState(0)
-  const [cell, setcell] = useState(initialcell)
-  const [player, setPlayer] = useState("A")
+    const [cell, setcell] = useState(initialcell)
+    const [player, setPlayer] = useState("A")
     const [score, _setScore] = useState({
         A: 0, B: 0
     })
@@ -151,35 +151,75 @@ function App() {
       setTurn(0)
   }
 
+  const Cell = ({index}) => {
+      return (
+          <button style={{width: 40, height: 40}} onClick={() => onChangeCell(index)}>{cell[index] ?? "-"}</button>
+      )
+  }
+
+  const CellRowStyle = {
+      gap: 10,
+      display: 'flex'
+  }
+
   return (
-    <div className="App">
-        <div>
-            <div onClick={onDecrease}>-</div>
+    <div style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: 'center'
+    }}>
+        <div style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: 20,
+            fontSize: 40
+        }}>
+            <div style={{}} onClick={onDecrease}>-</div>
             {reducerCounter}
             <div onClick={onIncrease}>+</div>
         </div>
-      <div>
-        <h1>틱택토 플레이어 : {player}</h1>
+      <div style={{color: "gray", padding: 20, backgroundColor: "yellow", alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+        <h1 >틱택토 플레이어 : {player}</h1>
           <h2>{score.A}:{score.B}</h2>
       </div>
+        <div style={{gap: 10, display: "flex", flexDirection: 'column'}}>
+          <div style={CellRowStyle}>
+              <Cell index={0} />
+              <Cell index={1} />
+              <Cell index={2} />
+          </div>
+            <div style={CellRowStyle}>
+              <Cell index={3} />
+              <Cell index={4} />
+              <Cell index={5} />
+          </div>
+            <div style={CellRowStyle}>
+              <Cell index={6} />
+              <Cell index={7} />
+              <Cell index={8} />
+          </div>
+        </div>
       <div>
-        <button onClick={() => onChangeCell(0)}>{cell[0] ?? "-"}</button>
-        <button onClick={() => onChangeCell(1)}>{cell[1] ?? "-"}</button>
-        <button onClick={() => onChangeCell(2)}>{cell[2] ?? "-"}</button>
+        <button style={{paddingTop: 10, paddingBottom: 10, paddingRight: 20, paddingLeft: 20}} onClick={() => resetgame()}>초기화</button>
       </div>
-      <div>
-        <button onClick={() => onChangeCell(3)}>{cell[3] ?? "-"}</button>
-        <button onClick={() => onChangeCell(4)}>{cell[4] ?? "-"}</button>
-        <button onClick={() => onChangeCell(5)}>{cell[5] ?? "-"}</button>
-      </div>
-      <div>
-        <button onClick={() => onChangeCell(6)}>{cell[6] ?? "-"}</button>
-        <button onClick={() => onChangeCell(7)}>{cell[7] ?? "-"}</button>
-        <button onClick={() => onChangeCell(8)}>{cell[8] ?? "-"}</button>
-      </div>
-      <div>
-        <button onClick={() => resetgame()}>초기화</button>
-      </div>
+
+        <div style={{display: "flex", flexDirection: 'row', backgroundColor: 'yellow', width: 400, height: 400, gap: 20, padding: 20}}>
+            <div style={{display: "flex", backgroundColor: 'yellow', flex: 1, flexDirection: 'column', gap: 20}}>
+                <div style={{display: "flex", backgroundColor: 'red', flex: 1, flexDirection: 'column'}}></div>
+                <div style={{display: "flex", backgroundColor: 'red', flex: 1, flexDirection: 'column'}}></div>
+                <div style={{display: "flex", backgroundColor: 'red', flex: 1, flexDirection: 'column'}}></div>
+            </div>
+            <div style={{display: "flex", backgroundColor: 'yellow', flex: 2, flexDirection: 'column', gap: 20}}>
+                <div style={{display: "flex", backgroundColor: 'red', flex: 1, flexDirection: 'column'}}></div>
+                <div style={{display: "flex", backgroundColor: 'yellow', flex: 2, flexDirection: 'row', gap: 20}}>
+                    <div style={{display: "flex", backgroundColor: 'red', flex: 1, flexDirection: 'column'}}></div>
+                    <div style={{display: "flex", backgroundColor: 'yellow', flex: 1.5, flexDirection: 'column', gap: 20}}>
+                        <div style={{display: "flex", backgroundColor: 'red', flex: 1, flexDirection: 'column'}}></div>
+                        <div style={{display: "flex", backgroundColor: 'red', flex: 1, flexDirection: 'column'}}></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
   );
 }
